@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .countdown-container {
+            text-align: center;
+        }
+
+        #timer div {
+            font-size: 2em;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown-container">
+        <h1>Countdown to Event</h1>
+        <div id="timer">
+            <div><span id="days"></span> days</div>
+            <div><span id="hours"></span> hours</div>
+            <div><span id="minutes"></span> minutes</div>
+            <div><span id="seconds"></span> seconds</div>
+        </div>
+    </div>
+    <script>
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 79); // Set the countdown for 79 days from now
+
+        function updateCountdown() {
+            const currentTime = new Date();
+            const difference = targetDate - currentTime;
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+
+            if (difference < 0) {
+                clearInterval(interval);
+                document.getElementById('timer').innerHTML = "Event has started!";
+            }
+        }
+
+        updateCountdown();
+        const interval = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
