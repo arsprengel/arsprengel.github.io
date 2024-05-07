@@ -34,29 +34,30 @@
         </div>
     </div>
     <script>
-        const targetDate = new Date();
-        targetDate.setDate(targetDate.getDate() + 79); // Set the countdown for 79 days from now
-
+             const targetDate = new Date();
+        targetDate.setFullYear(new Date().getFullYear(), 6, 25); // Month is 0-indexed (0 = January, 6 = July)
+        targetDate.setHours(0, 0, 0, 0); // Optional: set time to 00:00:00 for precision
+    
         function updateCountdown() {
             const currentTime = new Date();
             const difference = targetDate - currentTime;
-
+    
             const days = Math.floor(difference / (1000 * 60 * 60 * 24));
             const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
+    
             document.getElementById('days').textContent = days;
             document.getElementById('hours').textContent = hours;
             document.getElementById('minutes').textContent = minutes;
             document.getElementById('seconds').textContent = seconds;
-
+    
             if (difference < 0) {
                 clearInterval(interval);
                 document.getElementById('timer').innerHTML = "Event has started!";
             }
         }
-
+    
         updateCountdown();
         const interval = setInterval(updateCountdown, 1000);
     </script>
